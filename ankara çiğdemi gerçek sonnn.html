@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ankara çiğdemi</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--yesil:#2f7d3e;--koyu:#1d3b2a;--acik:#e9f6e4;--sari:#ffd43b;--turuncu:#f59f1b;--krem:#fffdf3;--yazi:#2b3a2f}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:"Nunito","Segoe UI",Arial,sans-serif;font-size:1.08rem;line-height:1.7;color:var(--yazi);background:var(--krem)}
+h1,h2,h3{font-family:"Fredoka","Trebuchet MS",sans-serif;font-weight:600;line-height:1.15;color:var(--koyu)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--turuncu);outline-offset:3px}
+.kap{max-width:1100px;margin:0 auto;padding:0 1.4rem}
+section{padding:5rem 0}
+
+/* Menü */
+.menu{position:sticky;top:0;z-index:20;background:rgba(255,253,243,.92);backdrop-filter:blur(10px);box-shadow:0 2px 14px rgba(29,59,42,.1)}
+.menu .kap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.logo{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.25rem;color:var(--yesil);text-decoration:none}
+.menu nav{display:flex;gap:.3rem}
+.menu nav a{color:var(--koyu);text-decoration:none;font-weight:700;font-size:.95rem;padding:.45rem .9rem;border-radius:999px;transition:.25s}
+.menu nav a:hover{background:var(--sari)}
+#mb{display:none;background:var(--yesil);color:#fff;border:0;border-radius:10px;padding:.4rem .8rem;font-size:1.3rem;cursor:pointer}
+
+/* Ortak animasyon */
+.g{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease;transition-delay:calc(var(--i,0)*.15s)}
+.g.goster{opacity:1;transform:none}
+
+/* Ana sayfa */
+#ana{background:linear-gradient(160deg,#fff7c9 0%,var(--acik) 60%,#d3ecc9 100%);padding:4rem 0 6rem;position:relative;overflow:hidden}
+#ana .kap{display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem;align-items:center}
+#ana h1{font-size:clamp(2.8rem,8vw,5.2rem);animation:yuk 1s .1s both ease-out}
+#ana .giris{font-size:1.25rem;margin:1.2rem 0 1.8rem;max-width:32rem;animation:yuk 1s .35s both ease-out}
+.dugme{display:inline-block;background:var(--yesil);color:#fff;text-decoration:none;font-weight:700;padding:.85rem 1.7rem;border-radius:999px;box-shadow:0 8px 20px rgba(47,125,62,.35);transition:.25s;animation:yuk 1s .6s both ease-out}
+.dugme:hover{transform:translateY(-3px);background:#256631}
+.dugme.sari{background:var(--sari);color:var(--koyu);box-shadow:0 8px 20px rgba(245,159,27,.4)}
+@keyframes yuk{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes ac{from{opacity:0;transform:scale(.6) rotate(-12deg)}to{opacity:1;transform:none}}
+@keyframes sal{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+
+/* Fotoğraf çerçevesi */
+.foto{position:relative;border-radius:200px 200px 28px 28px;overflow:hidden;background:radial-gradient(circle at 50% 35%,#fff6b0,#bfe5b0);box-shadow:0 20px 50px rgba(29,59,42,.25);aspect-ratio:4/5;border:6px solid #fff}
+.foto svg{width:100%;height:100%;padding:12%;animation:ac 1.4s .3s both cubic-bezier(.2,.8,.3,1)}
+.foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#ana .foto{animation:sal 6s 2s infinite ease-in-out}
+.not{font-size:.85rem;color:#5a6b5e;text-align:center;margin-top:.5rem}
+
+/* Başlıklar */
+.ust{text-align:center;margin-bottom:2.5rem}
+.ust h2{font-size:clamp(2rem,5vw,3rem)}
+.ust p{max-width:36rem;margin:.6rem auto 0}
+.cizgi{width:70px;height:6px;border-radius:9px;background:var(--sari);margin:.8rem auto 0}
+.ust.sol{text-align:left;margin-bottom:1.5rem}.ust.sol .cizgi{margin-left:0}
+
+/* Nedir */
+#nedir .kap{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:center}
+.kartlar{display:grid;gap:1rem}
+.kart{background:#fff;border-radius:24px;padding:1.2rem 1.4rem;box-shadow:0 8px 24px rgba(29,59,42,.1);display:flex;gap:1rem;align-items:center;border-left:8px solid var(--sari)}
+.kart:nth-child(2){border-left-color:var(--yesil)}
+.kart:nth-child(3){border-left-color:var(--turuncu)}
+.kart .ik{font-size:2.2rem}
+.kart h3{font-size:1.2rem}
+.kart p{font-size:1rem;line-height:1.5}
+
+/* Nerede */
+#nerede{background:var(--acik)}
+#nerede .kap{display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem;align-items:center}
+.harita{background:#fff;border-radius:28px;padding:1rem;box-shadow:0 10px 30px rgba(29,59,42,.12)}
+.harita svg{width:100%;height:auto;display:block}
+.harita .ulke{fill:#cfe8c4;stroke:#2f7d3e;stroke-width:3;stroke-linejoin:round;stroke-dasharray:2400;stroke-dashoffset:2400}
+.g.goster .ulke{animation:ciz 2.5s ease forwards}
+@keyframes ciz{to{stroke-dashoffset:0}}
+.bolge{fill:#ffd43b;opacity:.35;stroke:#f59f1b;stroke-width:2;stroke-dasharray:7 6}
+.harita text{font-family:"Fredoka",sans-serif}
+.bilgi{list-style:none;display:grid;gap:.8rem}
+.bilgi li{display:flex;gap:.9rem;align-items:center;background:#fff;border-radius:18px;padding:.8rem 1.1rem;box-shadow:0 4px 14px rgba(29,59,42,.08)}
+.bilgi .ik{font-size:1.7rem}
+.dogru{margin-top:1.2rem;background:#fff8d6;border:2px dashed var(--turuncu);border-radius:20px;padding:1rem 1.2rem;font-size:1rem}
+
+/* Neden önemli */
+.uclu{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.buyuk{background:#fff;border-radius:28px;padding:2rem 1.7rem;box-shadow:0 10px 30px rgba(29,59,42,.12);border-top:8px solid var(--yesil)}
+.buyuk:nth-child(2){border-top-color:var(--sari)}
+.buyuk:nth-child(3){border-top-color:#4aa3c7}
+.buyuk.goster:hover{transform:translateY(-10px) rotate(-1deg);box-shadow:0 22px 44px rgba(29,59,42,.2);transition-delay:0s}
+.buyuk .ik{font-size:3.2rem;display:inline-block;transition:transform .4s}
+.buyuk:hover .ik{transform:scale(1.25) rotate(12deg)}
+.buyuk h3{font-size:1.5rem;margin:.6rem 0}
+.buyuk p{font-size:1rem;margin-bottom:.6rem}
+.buyuk small{display:block;background:var(--acik);border-radius:12px;padding:.5rem .8rem;font-size:.9rem;line-height:1.5}
+
+/* Tozlaşma ve zincir */
+.tozlas{background:#fff8d6;border:2px dashed var(--turuncu);border-radius:28px;padding:1.6rem 1.8rem;margin-top:2rem}
+.tozlas h3{font-size:1.4rem;margin-bottom:.5rem}
+.tozlas ul{padding-left:1.2rem;margin-top:.6rem}
+.tozlas li{margin-bottom:.4rem;font-size:1rem}
+.zh{margin:3rem 0 1.4rem;font-size:1.7rem;text-align:center}
+.zincir{display:flex;flex-wrap:wrap;gap:1.4rem;justify-content:center}
+.halka{position:relative;background:#fff;border-radius:22px;padding:1rem;width:170px;text-align:center;box-shadow:0 8px 22px rgba(29,59,42,.12);font-size:.95rem;line-height:1.4}
+.halka .ik{display:block;font-size:2.2rem}
+.halka:not(:last-child)::after{content:"➜";position:absolute;right:-1.2rem;top:50%;transform:translateY(-50%);color:var(--turuncu);font-size:1.3rem}
+.notzinc{max-width:46rem;margin:1.4rem auto 0;text-align:center;font-size:.95rem;color:#4a5b4e}
+.turizm{margin-top:1.5rem;background:var(--acik);border-radius:24px;padding:1.3rem 1.6rem;display:flex;gap:1rem;align-items:center}
+.turizm .ik{font-size:2.6rem}
+
+/* Nasıl koruruz */
+#koruma{background:linear-gradient(180deg,var(--krem),#fff7c9)}
+.izgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem}
+.oneri{background:#fff;border-radius:26px;padding:1.5rem 1.2rem;text-align:center;box-shadow:0 8px 22px rgba(29,59,42,.1)}
+.oneri.goster:hover{transform:translateY(-6px);transition-delay:0s}
+.oneri .ik{font-size:2.8rem;display:block;animation:sal 3.5s infinite ease-in-out;animation-delay:calc(var(--i)*.4s)}
+.oneri:hover .ik{animation-duration:.6s}
+.oneri h3{font-size:1.1rem;margin:.5rem 0 .3rem}
+.oneri p{font-size:.95rem;line-height:1.5}
+
+/* Son bölüm */
+#son{background:linear-gradient(160deg,var(--koyu),#2f7d3e);color:#fff;text-align:center;position:relative;overflow:hidden;padding:7rem 0}
+#son h2{color:var(--sari);font-size:clamp(2.4rem,7vw,4.6rem);margin-bottom:1.2rem}
+#son p{font-size:1.3rem;max-width:40rem;margin:0 auto 2rem}
+#son .kap{position:relative;z-index:1}
+.uc{position:absolute;font-size:2rem;opacity:.35;animation:yuz 9s infinite ease-in-out;left:var(--x);top:var(--y);animation-delay:var(--d)}
+@keyframes yuz{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-30px) rotate(20deg)}}
+
+footer{background:#122a1d;color:#b9d0c0;padding:2rem 0;font-size:.9rem}
+footer a{color:var(--sari)}
+footer h3{color:#fff;font-size:1.1rem;margin-bottom:.4rem}
+footer ul{padding-left:1.2rem;margin-bottom:1rem}
+
+@media(max-width:820px){
+  #ana .kap,#nedir .kap,#nerede .kap{grid-template-columns:1fr}
+  #ana .foto{max-width:320px;margin:0 auto}
+  section{padding:3.5rem 0}
+  #mb{display:block}
+  .menu nav{display:none;position:absolute;top:62px;left:0;right:0;flex-direction:column;background:var(--krem);padding:.6rem 1.2rem 1rem;box-shadow:0 10px 20px rgba(0,0,0,.1)}
+  .menu nav.acik{display:flex}
+  .zincir{gap:2.2rem}
+  .halka{width:100%;max-width:340px}
+  .halka:not(:last-child)::after{content:"⬇";right:auto;left:50%;top:auto;bottom:-1.7rem;transform:translateX(-50%)}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.g{opacity:1;transform:none}.harita .ulke{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+
+<!-- Çiçek çizimi (fotoğraf yoksa bu görünür) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="pt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe066"/><stop offset="1" stop-color="#f59f1b"/></linearGradient>
+<symbol id="cigdem" viewBox="0 0 200 240">
+<path d="M100 236C82 196 58 170 26 156C64 164 90 190 100 224Z" fill="#4c9a3f"/>
+<path d="M100 236C118 196 142 170 174 156C136 164 110 190 100 224Z" fill="#4c9a3f"/>
+<path d="M100 236C96 200 96 170 100 130L106 130C110 170 108 200 100 236Z" fill="#8bc16a"/>
+<g transform="translate(100 100)" fill="url(#pt)" stroke="#e8890c" stroke-width="1">
+<ellipse cy="-46" rx="21" ry="47"/><ellipse cy="-46" rx="21" ry="47" transform="rotate(60)"/><ellipse cy="-46" rx="21" ry="47" transform="rotate(120)"/><ellipse cy="-46" rx="21" ry="47" transform="rotate(180)"/><ellipse cy="-46" rx="21" ry="47" transform="rotate(240)"/><ellipse cy="-46" rx="21" ry="47" transform="rotate(300)"/>
+</g>
+<circle cx="100" cy="100" r="15" fill="#ffd43b"/><circle cx="100" cy="100" r="7" fill="#e8590c"/>
+</symbol></defs></svg>
+
+<header class="menu"><div class="kap">
+  <a class="logo" href="#ana">🌼 Ankara Çiğdemi</a>
+  <button id="mb" aria-label="Menüyü aç">☰</button>
+  <nav id="nav">
+    <a href="#ana">Ana Sayfa</a><a href="#nedir">Nedir?</a><a href="#nerede">Nerede?</a><a href="#onem">Neden Önemli?</a><a href="#koruma">Nasıl Koruyabiliriz?</a>
+  </nav>
+</div></header>
+
+<main>
+<!-- 1. ANA SAYFA -->
+<section id="ana"><div class="kap">
+  <div>
+    <h1>Ankara Çiğdemi 🌼</h1>
+    <p class="giris">Ankara Çiğdemi, kış sonunda karların arasından çıkıp sarı çiçeklerini açan bir bahar bitkisi. Bu sitede onu tanıyacak ve neden korumamız gerektiğini öğreneceğiz.</p>
+    <a class="dugme" href="#nedir">Keşfetmeye başla</a>
+  </div>
+  <div>
+    <div class="foto">
+      <svg viewBox="0 0 200 240" role="img" aria-label="Ankara Çiğdemi çizimi"><use href="#cigdem"/></svg>
+      <img src="cigdem.jpg" alt="Ankara Çiğdemi fotoğrafı" onerror="this.remove()">
+    </div>
+  </div>
+</div></section>
+
+<!-- 2. NEDİR -->
+<section id="nedir"><div class="kap">
+  <div class="g">
+    <div class="foto" style="max-width:380px;margin:0 auto">
+      <svg viewBox="0 0 200 240" role="img" aria-label="Ankara Çiğdemi çizimi"><use href="#cigdem"/></svg>
+      <img src="cigdem2.jpg" alt="Ankara Çiğdemi yakın çekim" onerror="this.remove()">
+    </div>
+  </div>
+  <div>
+    <div class="ust sol g"><h2>Ankara Çiğdemi nedir?</h2><div class="cizgi"></div></div>
+    <div class="kartlar">
+      <div class="kart g" style="--i:1"><span class="ik">🇹🇷</span><div><h3>Türkiye'ye özgü bir bitki</h3><p>Bilimsel adı <em>Crocus ancyrensis</em>. Doğal olarak Türkiye'nin kuzeyinde ve ortasında yetişir.</p></div></div>
+      <div class="kart g" style="--i:2"><span class="ik">🌼</span><div><h3>Küçük ve renkli</h3><p>Boyu yaklaşık 10–15 cm. Çiçekleri turuncu-sarıdır.</p></div></div>
+      <div class="kart g" style="--i:3"><span class="ik">❄️</span><div><h3>Erken açar</h3><p>Genelde Şubat–Nisan aylarında çiçek açar. Yer altındaki yumrusundan büyür.</p></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 3. NEREDE -->
+<section id="nerede"><div class="kap">
+  <div class="harita g">
+    <svg viewBox="0 0 545 320" role="img" aria-label="Türkiye haritasında Ankara'nın yeri">
+      <path class="ulke" d="M8,28 L62,15 L91,51 L145,55 L201,14 L261,12 L296,46 L353,64 L406,60 L440,37 L482,55 L532,106 L518,133 L510,230 L465,239 L398,248 L342,251 L302,258 L286,292 L274,262 L246,255 L196,285 L132,276 L98,262 L62,258 L42,244 L17,184 L11,129 L11,106 L14,75 Z"/>
+      <ellipse class="bolge" cx="235" cy="95" rx="185" ry="58"/>
+      <circle cx="197" cy="109" r="8" fill="none" stroke="#e8590c" stroke-width="3"><animate attributeName="r" values="8;38" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="197" cy="109" r="8" fill="none" stroke="#e8590c" stroke-width="3"><animate attributeName="r" values="8;38" dur="2s" begin="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="2s" begin="1s" repeatCount="indefinite"/></circle>
+      <circle cx="197" cy="109" r="9" fill="#e8590c" stroke="#fff" stroke-width="3"/>
+      <text x="212" y="134" font-size="20" fill="#1d3b2a" font-weight="600">Ankara</text>
+      <text x="120" y="60" font-size="14" fill="#9a6300">Kuzey ve Orta Türkiye (şematik)</text>
+      <text x="272" y="200" font-size="14" fill="#5a6b5e">TÜRKİYE</text>
+    </svg>
+    <p class="not">Şematik harita: yerler yaklaşıktır.</p>
+  </div>
+  <div>
+    <div class="ust sol g"><h2>Nerede yetişir?</h2><div class="cizgi"></div></div>
+    <ul class="bilgi">
+      <li class="g" style="--i:1"><span class="ik">🪨</span>Kayalık yerlerde</li>
+      <li class="g" style="--i:2"><span class="ik">🌿</span>Dağ çalılıklarında ve çam ağaçlarının yakınında</li>
+      <li class="g" style="--i:3"><span class="ik">⛰️</span>Yaklaşık 1000–1600 metre yükseklikte</li>
+      <li class="g" style="--i:4"><span class="ik">🌤️</span>Kışı soğuk ve karlı, yazı sıcak ve kurak iklimde</li>
+    </ul>
+    <div class="dogru g" style="--i:5"><strong>Sadece Ankara'da mı yetişir?</strong> Hayır. Adını Ankara'da ilk bulunduğu için almıştır, ama kaynaklara göre Kuzey ve Orta Türkiye'de doğal olarak yetişir. Ankara İl Kültür ve Turizm Müdürlüğü'ne göre Orta Anadolu'da Ankara ve çevresinin yanında Kayseri, Nevşehir, Eskişehir ve Konya gibi illerde de bulunur. Dünyada doğal olarak sadece Türkiye'de bulunduğu için "endemik" denir. Başka ülkelerde ise sadece bahçelerde yetiştirilir.</div>
+  </div>
+</div></section>
+
+<!-- 4. NEDEN ÖNEMLİ -->
+<section id="onem"><div class="kap">
+  <div class="ust g"><h2>Neden önemli?</h2><div class="cizgi"></div><p>Küçük bir çiçek, büyük bir doğal düzenin parçası.</p></div>
+  <div class="uclu">
+    <div class="buyuk g" style="--i:1"><span class="ik">🌱</span><h3>Doğal yaşam</h3>
+      <p>Ankara Çiğdemi, Türkiye'nin kayalık yamaçlarının ve çalılık alanlarının doğal bir üyesidir. Bu alanlar bozulursa orada yaşayan bitkiler de zarar görür.</p>
+      <small>Doğal alan sağlıklıysa içindeki bitkiler de yaşayabilir.</small></div>
+    <div class="buyuk g" style="--i:2"><span class="ik">🐝</span><h3>Ekosistem</h3>
+      <p>Çiğdemler erken ilkbaharda arılar için polen ve nektar sağlar. Arılar çiçekten çiçeğe polen taşıyarak tozlaşmaya yardım eder. Ankara Çiğdemi de erken açan bir çiğdemdir.</p>
+      <small>Bal üretimi birçok bitkiye bağlıdır. Tek bir çiçek bunu belirlemez, ama erken çiçeklerin azalması arıların besinini azaltabilir.</small></div>
+    <div class="buyuk g" style="--i:3"><span class="ik">🌍</span><h3>Biyoçeşitlilik</h3>
+      <p>Biyoçeşitlilik, yeryüzündeki canlı türlerinin çokluğudur. Ankara Çiğdemi doğal olarak sadece Türkiye'de yaşadığı için özellikle değerlidir. Burada azalırsa dünyada başka doğal yaşam alanı yoktur.</p>
+      <small>Yerel bitkileri korumak, doğanın çeşitliliğini korumaktır.</small></div>
+  </div>
+
+  <h3 class="zh g">Korumazsak ne olabilir?</h3>
+  <div class="zincir">
+    <div class="halka g" style="--i:1"><span class="ik">🌼</span>Çiçekler ve doğal alanlar azalır</div>
+    <div class="halka g" style="--i:2"><span class="ik">🐝</span>Arılar ve böcekler erken besin bulamaz</div>
+    <div class="halka g" style="--i:3"><span class="ik">🌸</span>Tozlaşma azalabilir</div>
+    <div class="halka g" style="--i:4"><span class="ik">🍯</span>Meyve, sebze ve bal üretimi etkilenebilir</div>
+    <div class="halka g" style="--i:5"><span class="ik">🥾</span>Doğa turizmi ve doğa gözlemi azalabilir</div>
+  </div>
+  <p class="notzinc g">Bunlar olası sonuçlardır. Tek bir çiçek hemen büyük bir değişiklik yapmaz, ama çiçekler ve doğal alanlar azaldıkça bu zincirin halkaları zayıflayabilir.</p>
+
+  <div class="turizm g">
+    <span class="ik">🥾</span>
+    <p><strong>Turizm de etkilenebilir.</strong> Ankara İl Kültür ve Turizm Müdürlüğü'ne göre Ankara Çiğdemi, kültürel turizmin desteklenmesi için önemli bir potansiyele sahiptir. Çiçekler azalırsa bu değer de azalır. Doğa yürüyüşü yapan insanlar için çiçekli doğal alanlar çekici olabilir.</p>
+  </div>
+</div></section>
+
+<!-- 5. NASIL KORUYABİLİRİZ -->
+<section id="koruma"><div class="kap">
+  <div class="ust g"><h2>Nasıl koruyabiliriz?</h2><div class="cizgi"></div><p>Hepsi kolay ve hepimizin yapabileceği şeyler.</p></div>
+  <div class="izgara">
+    <div class="oneri g" style="--i:1"><span class="ik" style="--i:1">🌼</span><h3>Çiçekleri koparmayalım</h3><p>Gördüğümüzde fotoğrafını çekelim, çiçeği yerinde bırakalım.</p></div>
+    <div class="oneri g" style="--i:2"><span class="ik" style="--i:2">🗑️</span><h3>Doğayı temiz tutalım</h3><p>Çöplerimizi geri götürelim, doğaya bırakmayalım.</p></div>
+    <div class="oneri g" style="--i:3"><span class="ik" style="--i:3">🌱</span><h3>Yaşam alanlarını koruyalım</h3><p>Yürürken patikadan çıkmayalım, çiçeklerin üstüne basmayalım.</p></div>
+    <div class="oneri g" style="--i:4"><span class="ik" style="--i:4">🐝</span><h3>Tozlaştırıcılara zarar vermeyelim</h3><p>Arılara ve kelebeklere dokunmayalım, onları korkutmayalım.</p></div>
+  </div>
+</div></section>
+
+<!-- 6. SON -->
+<section id="son">
+  <span class="uc" style="--x:8%;--y:20%;--d:0s">🌼</span><span class="uc" style="--x:85%;--y:15%;--d:1s">🐝</span><span class="uc" style="--x:15%;--y:75%;--d:2s">🌱</span><span class="uc" style="--x:80%;--y:70%;--d:3s">🌼</span><span class="uc" style="--x:50%;--y:8%;--d:1.5s">🌍</span>
+  <div class="kap g">
+    <h2>Ankara Çiğdemi'ni koruyalım!</h2>
+    <p>Ankara Çiğdemi'ni korumak sadece bir çiçeği korumak değildir. Aynı zamanda doğal yaşamı, arıları ve biyoçeşitliliği korumaya yardımcı olur.</p>
+    <a class="dugme sari" href="#ana" style="animation:none">Başa dön 🌼</a>
+  </div>
+</section>
+</main>
+
+<footer><div class="kap">
+  <h3>Kaynaklar</h3>
+  <ul>
+    <li>Kew Royal Botanic Gardens, Plants of the World Online: <a href="https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:436451-1" target="_blank" rel="noopener">Crocus ancyrensis</a> (doğal yayılış: Kuzey ve Orta Türkiye)</li>
+    <li>Alpine Garden Society: <a href="http://archive.alpinegardensociety.net/plants/Crocus/ancyrensis/7" target="_blank" rel="noopener">Crocus ancyrensis</a> (yaşam alanı ve iklim)</li>
+    <li>T.C. Ankara İl Kültür ve Turizm Müdürlüğü: <a href="https://ankara.ktb.gov.tr/TR-153101/ankara-cigdemi.html" target="_blank" rel="noopener">Ankara Çiğdemi</a> (yayılış ve turizm potansiyeli)</li>
+    <li>Wikipedia: <a href="https://en.wikipedia.org/wiki/Crocus_ancyrensis" target="_blank" rel="noopener">Crocus ancyrensis</a> (çiçek açma zamanı, yükseklik, boy)</li>
+    <li>FAO: <a href="https://www.fao.org/pollination/about/en" target="_blank" rel="noopener">Tozlaşma ve insan geçim kaynakları</a>; Our World in Data: <a href="https://ourworldindata.org/pollinator-dependence" target="_blank" rel="noopener">tozlaştırıcılara bağımlılık</a></li>
+    <li>BBC Gardeners' World: <a href="https://www.gardenersworld.com/how-to/grow-plants/plants-for-early-pollinators/" target="_blank" rel="noopener">erken çiçekler ve arılar</a> (çiğdemlerin arılar için önemi)</li>
+  </ul>
+  <p>7. Sınıf Çevre Dersi Projesi</p>
+</div></footer>
+
+<script>
+// Sırayla görünme animasyonu
+const io=new IntersectionObserver(l=>l.forEach(e=>{if(e.isIntersecting){e.target.classList.add('goster');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.g').forEach(x=>io.observe(x));
+// Telefon menüsü
+const nav=document.getElementById('nav');
+document.getElementById('mb').onclick=()=>nav.classList.toggle('acik');
+nav.querySelectorAll('a').forEach(a=>a.onclick=()=>nav.classList.remove('acik'));
+</script>
+
+<!--
+BU DOSYAYI NASIL AÇARSIN?
+1. Bu dosyayı bilgisayarına kaydet (adı: ankara-cigdemi-website.html).
+2. Dosyaya çift tıkla. Tarayıcında (Chrome, Edge vb.) açılır.
+3. Açılmazsa dosyaya sağ tıkla > "Birlikte aç" > Chrome'u seç.
+4. Kendi fotoğrafını eklemek için: fotoğrafı bu dosyayla AYNI klasöre koy ve adlarını cigdem.jpg ve cigdem2.jpg yap.
+   Fotoğraf yoksa çiçek çizimi görünür.
+-->
+</body>
+</html>
